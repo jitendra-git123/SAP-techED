@@ -31,7 +31,7 @@ echo "${previousBuildNumber}"
           type: 'Jenkins',
           environmentId: 'c4ddfa9f-9616-4a7a-858d-2ad26d1719b5',
           environmentName: 'QA',
-          appId: 'cdad77db-b2d4-4a7f-9fc4-e821463a6f14',
+          appId: 'e0f07499-eca7-458f-a83b-11e5be54891f',
           description: 'SAP Deployment',
           appName: "SAP",
           initiator: "admin",
