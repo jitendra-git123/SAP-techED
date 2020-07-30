@@ -1,0 +1,17 @@
+#Steps Specific Configuration
+general:
+   changeManagement:
+           endpoint: 'http://192.168.6.21:8001/sap/opu/odata/sap/AI_CRM_GW_CM_CI_SRV'
+           clientOpts: ''
+           type: 'SOLMAN'
+
+steps:
+  mtaBuild:
+    buildTarget: 'NEO'
+  neoDeploy:
+   neo: 
+    neoCredentialsId: 'NEO_DEPLOY'
+    host: 'hanatrial.ondemand.com'
+    account: 's0017024127trial'
+    transportRequestUploadFile:
+      applicationId: 'HCP'
