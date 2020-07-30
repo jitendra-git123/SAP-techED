@@ -12,7 +12,7 @@ node() {
       check=checkout scm
       echo "${check}"
       //setupCommonPipelineEnvironment script:this
-      checkChangeInDevelopment script: this,changeDocumentId:'8000004988'     
+      //checkChangeInDevelopment script: this,changeDocumentId:'8000004988'     
       GIT_COMMIT = check.GIT_COMMIT
       echo ">>>>>>>${GIT_COMMIT}"
        }
