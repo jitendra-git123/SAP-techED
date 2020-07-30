@@ -4,11 +4,11 @@ node() {
 
   stage('prepare') {
 
-      checkout scm
+      //checkout scm
 
-      setupCommonPipelineEnvironment script:this
+      //setupCommonPipelineEnvironment script:this
 
-           checkChangeInDevelopment script: this,changeDocumentId:'8000004988'     
+        //   checkChangeInDevelopment script: this,changeDocumentId:'8000004988'     
     
        }
  stage('build') {
