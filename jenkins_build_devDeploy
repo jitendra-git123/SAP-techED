@@ -26,7 +26,7 @@ stage('build') {
       step([$class: 'UploadBuild',
       tenantId: "5ade13625558f2c6688d15ce",
       revision: "${GIT_COMMIT}",
-      appName: "SAP-Jenkins",
+      appName: "SAP",
       requestor: "admin",
       id: "${majorVersion}",
       versionName: "${BUILD_NUMBER}"
@@ -63,11 +63,11 @@ stage('build') {
           versionName: "${BUILD_NUMBER}",
           versionExtId: "${BUILD_NUMBER}",
           type: 'Jenkins',
-          environmentId: '3fc75683-c4d6-4905-b0d7-2e9cac3ce6bb',
+          environmentId: 'f60ebd42-564c-435b-ae56-0ca05d2343cc',
           environmentName: 'DEV',
-          appId: 'cdad77db-b2d4-4a7f-9fc4-e821463a6f14',
+          appId: 'e0f07499-eca7-458f-a83b-11e5be54891f',
           description: 'SAP Deployment',
-          appName: "SAP-Jenkins",
+          appName: "SAP",
           initiator: "admin",
           result: 'true',
           buildUrl: "${BUILD_URL}"
