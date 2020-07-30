@@ -44,19 +44,19 @@ stage('build') {
   stage('neoDeploy') {
       //checkout scm
       
-      checkout([$class: 'GitSCM',
-                                   branches: [[name: '*/master']], 
-                                   doGenerateSubmoduleConfigurations: false, 
-                                   extensions: [], submoduleCfg: [], 
-                                   userRemoteConfigs: [[credentialsId: 'ravishankarojha-github-creds',
-                            url: 'https://github.com/ravishankarojha/techED-app.git']]])
+   //   checkout([$class: 'GitSCM',
+     //                              branches: [[name: '*/master']], 
+       //                            doGenerateSubmoduleConfigurations: false, 
+         //                          extensions: [], submoduleCfg: [], 
+           //                        userRemoteConfigs: [[credentialsId: 'ravishankarojha-github-creds',
+             //               url: 'https://github.com/ravishankarojha/techED-app.git']]])
 
-      setupCommonPipelineEnvironment script:this
+     // setupCommonPipelineEnvironment script:this
 
-      checkChangeInDevelopment script: this,changeDocumentId:'8000004988'
+    //  checkChangeInDevelopment script: this,changeDocumentId:'8000004988'
     
-      mtaBuild script: this
-      neoDeploy script: this
+    //  mtaBuild script: this
+    //  neoDeploy script: this
       
       step([$class: 'UploadDeployment',
           tenantId: "5ade13625558f2c6688d15ce",
