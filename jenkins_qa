@@ -1,26 +1,26 @@
-@Library('piper-library-os') _
+//@Library('piper-library-os') _
 
 node() {
 
 echo "${previousBuildNumber}"
  
   stage('solmanTrCreate') {
-      transportRequestCreate script:this, changeDocumentId:'8000004988',developmentSystemId: 'SM1~ABAP/001',applicationId: 'HCP'
+  //    transportRequestCreate script:this, changeDocumentId:'8000004988',developmentSystemId: 'SM1~ABAP/001',applicationId: 'HCP'
   }
   
   stage('solmanUpload') {
-      transportRequestUploadFile  script:this, changeDocumentId:'8000004988',developmentSystemId: 'SM1~ABAP/001',applicationId: 'HCP'
+    //  transportRequestUploadFile  script:this, changeDocumentId:'8000004988',developmentSystemId: 'SM1~ABAP/001',applicationId: 'HCP'
   }
   
   stage('neoDeploy') {
       checkout scm
 
-      setupCommonPipelineEnvironment script:this
+      //setupCommonPipelineEnvironment script:this
 
-           checkChangeInDevelopment script: this,changeDocumentId:'8000004988'
+        //   checkChangeInDevelopment script: this,changeDocumentId:'8000004988'
     
-      mtaBuild script: this
-      neoDeploy script: this
+     // mtaBuild script: this
+     // neoDeploy script: this
   }
   
   stage('uploadvelocity') { 
@@ -29,11 +29,11 @@ echo "${previousBuildNumber}"
           versionName: "${previousBuildNumber}",
           versionExtId: "${previousBuildNumber}",
           type: 'Jenkins',
-          environmentId: 'dbe4746f-06bb-4964-aa31-66d1c0f1aa9c',
-          environmentName: 'PROD',
+          environmentId: 'c4ddfa9f-9616-4a7a-858d-2ad26d1719b5',
+          environmentName: 'QA',
           appId: 'cdad77db-b2d4-4a7f-9fc4-e821463a6f14',
           description: 'SAP Deployment',
-          appName: "SAP-Jenkins",
+          appName: "SAP",
           initiator: "admin",
           result: 'true'
        
