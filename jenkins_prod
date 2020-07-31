@@ -29,7 +29,7 @@ echo "${previousBuildNumber}"
           versionName: "${previousBuildNumber}",
           versionExtId: "${previousBuildNumber}",
           type: 'Jenkins',
-          environmentId: 'dbe4746f-06bb-4964-aa31-66d1c0f1aa9c',
+          environmentId: '16781264-7e4d-4962-a8f0-aa3fa1f52157',
           environmentName: 'PROD',
           appId: 'e0f07499-eca7-458f-a83b-11e5be54891f',
           description: 'SAP Deployment',
