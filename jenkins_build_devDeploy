@@ -28,7 +28,7 @@ stage('build') {
       revision: "${GIT_COMMIT}",
       appName: "SAP",
       requestor: "admin",
-      id: "${majorVersion}",
+      id: "${BUILD_NUMBER}",
       versionName: "${BUILD_NUMBER}"
     ])
   }
