@@ -62,19 +62,19 @@ stage('build') {
     //  mtaBuild script: this
     //  neoDeploy script: this
       
-     // step([$class: 'UploadDeployment',
-       //   tenantId: "5ade13625558f2c6688d15ce",
-       //   versionName: "${BUILD_NUMBER}",
-       //   versionExtId: "${BUILD_NUMBER}",
-       //   type: 'Jenkins',
-       //   environmentId: 'f60ebd42-564c-435b-ae56-0ca05d2343cc',
-       //   environmentName: 'DEV',
-       //   appId: 'e0f07499-eca7-458f-a83b-11e5be54891f',
-       //   description: 'SAP Deployment',
-       //   appName: "SAP",
-       //   initiator: "admin",
-       //   result: 'true',
-       //   buildUrl: "${BUILD_URL}"
-     //])
+      step([$class: 'UploadDeployment',
+          tenantId: "5ade13625558f2c6688d15ce",
+          versionName: "${BUILD_NUMBER}",
+          versionExtId: "${BUILD_NUMBER}",
+          type: 'Jenkins',
+          environmentId: 'f60ebd42-564c-435b-ae56-0ca05d2343cc',
+          environmentName: 'DEV',
+          appId: 'e0f07499-eca7-458f-a83b-11e5be54891f',
+          description: 'SAP Deployment',
+          appName: "SAP",
+          initiator: "admin",
+          result: 'true',
+          buildUrl: "${BUILD_URL}"
+     ])
   } 
 }
