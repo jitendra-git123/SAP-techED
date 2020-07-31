@@ -1,3 +1,3 @@
 # techED-app
-#Updated 31-July-20
+#Updated 31-July
 
