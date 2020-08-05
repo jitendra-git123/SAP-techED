@@ -1,89 +1,55 @@
-//@Library('piper-library-os') _
+node(){
 
-node() {
-  
-  def check
-  // def majorVersion="1.0.${BUILD_NUMBER}"
-  def majorVersion="${BUILD_NUMBER}"
-  currentBuild.displayName = majorVersion
-  def GIT_COMMIT
-  
+def check
   stage('prepare') {
-      check=checkout scm
-      echo "${check}"
-      //setupCommonPipelineEnvironment script:this
-      //checkChangeInDevelopment script: this,changeDocumentId:'8000004988'     
-      GIT_COMMIT = check.GIT_COMMIT
-      echo ">>>>>>>${GIT_COMMIT}"
-       }
-
-stage('build') {
-     // mtaBuild script: this
-     // step([$class: 'UploadBuild',tenantId: "5ade13625558f2c6688d15ce",revision: "${check.GIT_COMMIT}",appName: "SAP_Build",requestor: "admin",id: "${BUILD_NUMBER}"])
-}
-
- stage ('Upload Build to Accelerate') {
-      step([$class: 'UploadBuild',
-      tenantId: "5ade13625558f2c6688d15ce",
-      revision: "${GIT_COMMIT}",
-      appName: "SAP",
-      requestor: "admin",
-      id: "${majorVersion}",
-      versionName: "${BUILD_NUMBER}"
-    ])
+   //   check=checkout scm
+   //   echo "${check}"
+   //     echo ">>>>>>>${check.GIT_COMMIT}"
   }
- stage ('wait for deploy') {
-     sleep 5
- }	
+
+stage ("build") {
+                step([$class: 'UCDeployPublisher', 
+                                                component: [
+                                                                componentName: 'ABAP',
+                                                                componentTag: '',
+                                                                delivery: [
+                                                                                $class: 'Push',
+                                                                                baseDir: "/var/lib/jenkins/workspace/Ericsson/Ericsson_Build_UCD",
+                                                                                fileExcludePatterns: '',
+                                                                                fileIncludePatterns: '**/*',
+                                                                                pushDescription: '',
+                                                                                pushIncremental: false,
+                                                                                pushVersion: "${BUILD_NUMBER}"]
+                                                ]])
+                                                
+                                newComponentVersionId = "${ABAP_VersionId}"
+                                echo "Component Version ID =>>>>>>>${newComponentVersionId}"
+        step([$class: 'UploadBuild',
+           tenantId: "5ade13625558f2c6688d15ce",
+           revision: "${newComponentVersionId}",
+           appName: "SAP_ABAP-BE",
+           requestor: "admin",
+           id: "${majorVersion}",
+           versionName: "${BUILD_NUMBER}"
+        ])
+   }
+
+
+stage('Publish to UrbanCode Deploy') {        
+                sleep 15
+                                step([$class: 'UCDeployPublisher', 
+                                                deploy: [
+                                                                createSnapshot: [
+                                                                                deployWithSnapshot: true,
+                                                                                snapshotName: "${BUILD_NUMBER}"],
+                                                                                deployApp: 'SAP_ABAP-BE',
+                                                                                deployDesc: 'Requested from Jenkins',
+                                                                                deployEnv: 'DEV',
+                                                                                deployOnlyChanged: false,
+                                                                                deployProc: 'deploy',
+                                                                                deployReqProps: '',
+                                                                                deployVersions: "ABAP:${BUILD_NUMBER}"]])
+ }
  
- stage ("Appscan"){
-     //  appscan application: '84963f4f-0cf4-4262-9afe-3bd7c0ec3942', credentials: 'Credential for ASOC', failBuild: true, failureConditions: [failure_condition(failureType: 'high', threshold: 20)], name: '84963f4f-0cf4-4262-9afe-3bd7c0ec39421562', scanner: static_analyzer(hasOptions: false, target: 'D:/Installables/Jenkins/workspace/Velocity/AltoroJ/build/libs/'), type: 'Static Analyzer'
-  
-  build job: 'Velocity/Fonterra/asoc-hcl', wait: false, parameters: [string(name: 'parentBuildNumber', value: majorVersion), string(name: 'previousBuildUrl', value: BUILD_URL),string(name: 'COMMITID', value: GIT_COMMIT)]
-}
-
- stage ('wait for deploy') {
-     sleep 25
- }	
-  
-  stage('solmanTrCreate') {
-     // transportRequestCreate script:this, changeDocumentId:'8000004988',developmentSystemId: 'SM1~ABAP/001',applicationId: 'HCP'
-  }
-  
-  stage('solmanUpload') {
-      //transportRequestUploadFile  script:this, changeDocumentId:'8000004988',developmentSystemId: 'SM1~ABAP/001',applicationId: 'HCP'
-  }
-  
-  stage('neoDeploy') {
-      //checkout scm
-      
-   //   checkout([$class: 'GitSCM',
-     //                              branches: [[name: '*/master']], 
-       //                            doGenerateSubmoduleConfigurations: false, 
-         //                          extensions: [], submoduleCfg: [], 
-           //                        userRemoteConfigs: [[credentialsId: 'ravishankarojha-github-creds',
-             //               url: 'https://github.com/ravishankarojha/techED-app.git']]])
-
-     // setupCommonPipelineEnvironment script:this
-
-    //  checkChangeInDevelopment script: this,changeDocumentId:'8000004988'
-    
-    //  mtaBuild script: this
-    //  neoDeploy script: this
-      
-      step([$class: 'UploadDeployment',
-          tenantId: "5ade13625558f2c6688d15ce",
-          versionName: "${BUILD_NUMBER}",
-          versionExtId: "${BUILD_NUMBER}",
-          type: 'Jenkins',
-          environmentId: 'f60ebd42-564c-435b-ae56-0ca05d2343cc',
-          environmentName: 'DEV',
-          appId: 'e0f07499-eca7-458f-a83b-11e5be54891f',
-          description: 'SAP Deployment',
-          appName: "SAP",
-          initiator: "admin",
-          result: 'true',
-          buildUrl: "${BUILD_URL}"
-     ])
-  } 
-}
+ 
+                }
